@@ -16,7 +16,10 @@ const fetchData = async () => {
     // argument for axios
     params: {
       apikey: "1ca8cfc9",
-      s: "avengers",
+      // s - used to perform a search request
+      // s: 'avengers'
+      // i - to fetch an individual movie by id
+      i: "tt0848228",
     },
   });
 
