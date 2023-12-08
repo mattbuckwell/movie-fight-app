@@ -22,16 +22,21 @@ const fetchData = async (searchTerm) => {
       // i: "tt0848228",
     },
   });
-
-  // data property from response holds all the data from the request
-  console.log(response.data);
+  // return the Search array from the reponse against the API
+  // - Search has a captial 'S' as that is how it is in the response, creator of API used capital
+  return response.data.Search;
 };
 
 const input = document.querySelector("input");
 
-const onInput = (event) => {
-  // this is how we have access to what the user has entered
-  fetchData(event.target.value);
+const onInput = async (event) => {
+  /*
+    because fetchData is an aync function we need to use await if we want to wait for the 
+    promise to be fulfilled before storing it into our variable, becuase we used await we then
+    also need to mark this function as async to allow this
+  */
+  const movies = await fetchData(event.target.value);
+  console.log(movies);
 };
 
 // input event activates when the text inside the input changes and calls the debounce helper
