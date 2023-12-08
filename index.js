@@ -36,7 +36,19 @@ const onInput = async (event) => {
     also need to mark this function as async to allow this
   */
   const movies = await fetchData(event.target.value);
-  console.log(movies);
+  // iterating over the movies list from the api response
+  for (let movie of movies) {
+    const div = document.createElement("div");
+    // backticks - allow for multiple line string
+    // ${} to inject js variable into a string with backticks
+    // double quote needed as only the url will be added to the img but it NEEDS to be a string
+    div.innerHTML = `
+      <img src="${movie.Poster}" />
+      <h1>${movie.Title}</h1>
+    `;
+    // adding the newly created div with our movie information to the div on our markup
+    document.querySelector("#target").appendChild(div);
+  }
 };
 
 // input event activates when the text inside the input changes and calls the debounce helper
