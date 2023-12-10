@@ -22,6 +22,12 @@ const fetchData = async (searchTerm) => {
       // i: "tt0848228",
     },
   });
+
+  // inspect the response data to make sure no error was returned from the API
+  if (response.data.Error) {
+    return [];
+  }
+
   // return the Search array from the reponse against the API
   // - Search has a captial 'S' as that is how it is in the response, creator of API used capital
   return response.data.Search;
