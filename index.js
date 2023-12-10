@@ -85,3 +85,18 @@ const onInput = async (event) => {
 // input event activates when the text inside the input changes and calls the debounce helper
 // function with an override delay of .5s
 input.addEventListener("input", debounce(onInput, 500));
+
+// code to handle closing the dropdown menu
+document.addEventListener("click", (event) => {
+  /* 
+    check to see if the element clicked is inside our search menu
+     - if the user clicks inside or on the menu, stay open
+     - if the user clicks outside of the menu, close the menu
+    event.target - returns the element that has been clicked by the user
+  */
+  if (!root.contains(event.target)) {
+    dropdown.classList.remove("is-active");
+    // clearing the input field
+    input.value = "";
+  }
+});
