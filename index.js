@@ -57,9 +57,13 @@ const onInput = async (event) => {
     also need to mark this function as async to allow this
   */
   const movies = await fetchData(event.target.value);
+  // if movies is empty then down run any code below, exit function
+  if (!movies.length) {
+    dropdown.classList.remove("is-active");
+    return;
+  }
   // add some code to clear the dropdown menu so it doesn't double up
   resultsWrapper.innerHTML = "";
-
   // we are going to have a look at the dropdown element so we can activate the menu
   dropdown.classList.add("is-active");
   // iterating over the movies list from the api response
