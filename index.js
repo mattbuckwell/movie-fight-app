@@ -57,18 +57,23 @@ const onInput = async (event) => {
     also need to mark this function as async to allow this
   */
   const movies = await fetchData(event.target.value);
+  // we are going to have a look at the dropdown element so we can activate the menu
+  dropdown.classList.add("is-active");
   // iterating over the movies list from the api response
   for (let movie of movies) {
-    const div = document.createElement("div");
+    // bulma requires anchor tags for elements inside the dropdown content
+    const option = document.createElement("a");
+    // for style purposes from bulma
+    option.classList.add("dropdown-item");
     // backticks - allow for multiple line string
     // ${} to inject js variable into a string with backticks
     // double quote needed as only the url will be added to the img but it NEEDS to be a string
-    div.innerHTML = `
+    option.innerHTML = `
       <img src="${movie.Poster}" />
-      <h1>${movie.Title}</h1>
+      ${movie.Title}
     `;
-    // adding the newly created div with our movie information to the div on our markup
-    document.querySelector("#target").appendChild(div);
+    // adding the newly created anchor with our movie information to the dropdown content
+    resultsWrapper.appendChild(option);
   }
 };
 
