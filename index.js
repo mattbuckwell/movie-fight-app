@@ -85,6 +85,7 @@ const onInput = async (event) => {
     option.addEventListener("click", () => {
       dropdown.classList.remove("is-active");
       input.value = movie.Title;
+      onMovieSelect(movie);
     });
     // adding the newly created anchor with our movie information to the dropdown content
     resultsWrapper.appendChild(option);
@@ -109,3 +110,15 @@ document.addEventListener("click", (event) => {
     input.value = "";
   }
 });
+
+// helper function to display information about selected movie
+const onMovieSelect = async (movie) => {
+  const response = await axios.get("https://www.omdbapi.com/", {
+    params: {
+      apikey: "1ca8cfc9",
+      // i - to fetch an individual movie by id
+      i: movie.imdbID,
+    },
+  });
+  console.log(response.data);
+};
