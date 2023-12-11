@@ -81,6 +81,11 @@ const onInput = async (event) => {
       <img src="${imgSrc}" />
       ${movie.Title}
     `;
+    // event listener for the input field when a user click a movie option the value is updated
+    option.addEventListener("click", () => {
+      dropdown.classList.remove("is-active");
+      input.value = movie.Title;
+    });
     // adding the newly created anchor with our movie information to the dropdown content
     resultsWrapper.appendChild(option);
   }
