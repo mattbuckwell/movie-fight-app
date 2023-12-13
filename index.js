@@ -1,44 +1,10 @@
 // ------ Application Specific Code ------
 
-// network request
-const fetchData = async (searchTerm) => {
-  // first argument in axios.get is the url we want to retrieve
-  // ~ we have to wait for the response before we carry on with our code thats why
-  //   we have the await keyword
-
-  // we will get a response object back that represents all the information, related to this
-  // request
-
-  // second argument is an object
-  const response = await axios.get("https://www.omdbapi.com/", {
-    // list out all the different query string paramaters that we want to pass along with the
-    // request
-
-    // params below will be turned into a string and appended to the end of the url in the first
-    // argument for axios
-    params: {
-      apikey: "1ca8cfc9",
-      // s - used to perform a search request
-      s: searchTerm,
-      // i - to fetch an individual movie by id
-      // i: "tt0848228",
-    },
-  });
-
-  // inspect the response data to make sure no error was returned from the API
-  if (response.data.Error) {
-    return [];
-  }
-
-  // return the Search array from the reponse against the API
-  // - Search has a captial 'S' as that is how it is in the response, creator of API used capital
-  return response.data.Search;
-};
-
-// we pass in the root element to create our autocomplete widget
+// autocomplete widget configuration function call
 createAutoComplete({
+  // where the autocomplete is to be rendered to
   root: document.querySelector(".autocomplete"),
-  // helper function that gets passed in an object
+  // helper function to show an individual item
   // - extracted some custom logic which is only appropriate for this movie related response,
   //   if we ever want to change what it looks like all we need to do is modify this
   renderOption(movie) {
@@ -49,14 +15,46 @@ createAutoComplete({
       ${movie.Title} (${movie.Year})
     `;
   },
-  // extracted deciding what to do when a user clicks on something in just configuration
-  // inside of this file, which contains all our application specific code
+  // what to do when someone clicks on an item
   onOptionSelect(movie) {
     onMovieSelect(movie);
   },
-  // extract the application logic out of the autocomplete file into this file
+  // what to back fill inside the input when a user clicks on a movie
   inputValue(movie) {
     return movie.Title;
+  },
+  // how to fetch the data from the API
+  async fetchData(searchTerm) {
+    // first argument in axios.get is the url we want to retrieve
+    // ~ we have to wait for the response before we carry on with our code thats why
+    //   we have the await keyword
+
+    // we will get a response object back that represents all the information, related to this
+    // request
+
+    // second argument is an object
+    const response = await axios.get("https://www.omdbapi.com/", {
+      // list out all the different query string paramaters that we want to pass along with the
+      // request
+
+      // params below will be turned into a string and appended to the end of the url in the first
+      // argument for axios
+      params: {
+        apikey: "1ca8cfc9",
+        // s - used to perform a search request
+        s: searchTerm,
+        // i - to fetch an individual movie by id
+        // i: "tt0848228",
+      },
+    });
+
+    // inspect the response data to make sure no error was returned from the API
+    if (response.data.Error) {
+      return [];
+    }
+    // return the Search array from the reponse against the API
+    // - Search has a captial 'S' as that is how it is in the response, creator of API used capital
+    return response.data.Search;
   },
 });
 

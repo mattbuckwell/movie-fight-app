@@ -3,18 +3,22 @@
 /*
     Super reusable code to get an autocomplete to work. Zero knowledge of 'movies' or 'recipes'
     or 'blogs'. Must be able to be ran several times in the same project
+
+    reference to movies or movie have been removed from this source code so the autocomplete
+    widget can be reuseable for other applications outside of movie comparison
 */
 
-// function that expects to receive a root element, renderOption function
+// destructor out the functions being passed into from the application code
 const createAutoComplete = ({
   root,
   renderOption,
   onOptionSelect,
   inputValue,
+  fetchData,
 }) => {
   // decoupling between html and js files for the search fields
   root.innerHTML = `
-        <label><b>Search for a Movie</b></label>
+        <label><b>Search</b></label>
         <input class="input" />
         <div class="dropdown">
             <div class="dropdown-menu">
@@ -34,9 +38,9 @@ const createAutoComplete = ({
         promise to be fulfilled before storing it into our variable, becuase we used await we then
         also need to mark this function as async to allow this
         */
-    const movies = await fetchData(event.target.value);
+    const items = await fetchData(event.target.value);
     // if movies is empty then down run any code below, exit function
-    if (!movies.length) {
+    if (!items.length) {
       dropdown.classList.remove("is-active");
       return;
     }
@@ -45,18 +49,18 @@ const createAutoComplete = ({
     // we are going to have a look at the dropdown element so we can activate the menu
     dropdown.classList.add("is-active");
     // iterating over the movies list from the api response
-    for (let movie of movies) {
+    for (let item of items) {
       // bulma requires anchor tags for elements inside the dropdown content
       const option = document.createElement("a");
       // for style purposes from bulma
       option.classList.add("dropdown-item");
       // to generator the html for this selected option we need to call rendorOption
-      option.innerHTML = renderOption(movie);
+      option.innerHTML = renderOption(item);
       // event listener for the input field when a user click a movie option the value is updated
       option.addEventListener("click", () => {
         dropdown.classList.remove("is-active");
-        input.value = inputValue(movie);
-        onOptionSelect(movie);
+        input.value = inputValue(item);
+        onOptionSelect(item);
       });
       // adding the newly created anchor with our movie information to the dropdown content
       resultsWrapper.appendChild(option);
