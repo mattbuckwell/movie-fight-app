@@ -36,12 +36,17 @@ const fetchData = async (searchTerm) => {
 // we pass in the root element to create our autocomplete widget
 createAutoComplete({
   root: document.querySelector(".autocomplete"),
-});
-createAutoComplete({
-  root: document.querySelector(".autocomplete-two"),
-});
-createAutoComplete({
-  root: document.querySelector(".autocomplete-three"),
+  // helper function that gets passed in an object
+  // - extracted some custom logic which is only appropriate for this movie related response,
+  //   if we ever want to change what it looks like all we need to do is modify this
+  renderOption(movie) {
+    // check to see if the img src is valid or not
+    const imgSrc = movie.Poster === "N/A" ? "" : movie.Poster;
+    return `
+      <img src="${imgSrc}" />
+      ${movie.Title} (${movie.Year})
+    `;
+  },
 });
 
 // helper function to display information about selected movie

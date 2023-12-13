@@ -3,8 +3,8 @@
     or 'blogs'. Must be able to be ran several times in the same project
 */
 
-// function that takes expects to receive a root element
-const createAutoComplete = ({ root }) => {
+// function that expects to receive a root element, renderOption function
+const createAutoComplete = ({ root, renderOption }) => {
   // decoupling between html and js files for the search fields
   root.innerHTML = `
         <label><b>Search for a Movie</b></label>
@@ -41,17 +41,10 @@ const createAutoComplete = ({ root }) => {
     for (let movie of movies) {
       // bulma requires anchor tags for elements inside the dropdown content
       const option = document.createElement("a");
-      // check to see if the img src is valid or not
-      const imgSrc = movie.Poster === "N/A" ? "" : movie.Poster;
       // for style purposes from bulma
       option.classList.add("dropdown-item");
-      // backticks - allow for multiple line string
-      // ${} to inject js variable into a string with backticks
-      // double quote needed as only the url will be added to the img but it NEEDS to be a string
-      option.innerHTML = `
-            <img src="${imgSrc}" />
-            ${movie.Title}
-            `;
+      // to generator the html for this selected option we need to call rendorOption
+      option.innerHTML = renderOption(movie);
       // event listener for the input field when a user click a movie option the value is updated
       option.addEventListener("click", () => {
         dropdown.classList.remove("is-active");
