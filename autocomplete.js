@@ -1,10 +1,17 @@
+// ------ Autocomplete widget source code ------
+
 /*
     Super reusable code to get an autocomplete to work. Zero knowledge of 'movies' or 'recipes'
     or 'blogs'. Must be able to be ran several times in the same project
 */
 
 // function that expects to receive a root element, renderOption function
-const createAutoComplete = ({ root, renderOption }) => {
+const createAutoComplete = ({
+  root,
+  renderOption,
+  onOptionSelect,
+  inputValue,
+}) => {
   // decoupling between html and js files for the search fields
   root.innerHTML = `
         <label><b>Search for a Movie</b></label>
@@ -48,8 +55,8 @@ const createAutoComplete = ({ root, renderOption }) => {
       // event listener for the input field when a user click a movie option the value is updated
       option.addEventListener("click", () => {
         dropdown.classList.remove("is-active");
-        input.value = movie.Title;
-        onMovieSelect(movie);
+        input.value = inputValue(movie);
+        onOptionSelect(movie);
       });
       // adding the newly created anchor with our movie information to the dropdown content
       resultsWrapper.appendChild(option);

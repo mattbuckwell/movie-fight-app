@@ -1,4 +1,4 @@
-//  ----  All utility funtions are places inside here ----
+//  ------ All utility funtions are places inside here ------
 
 /*
   When the user presses a key inside our input field, it will enter the function below. It

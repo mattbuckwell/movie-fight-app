@@ -1,3 +1,5 @@
+// ------ Application Specific Code ------
+
 // network request
 const fetchData = async (searchTerm) => {
   // first argument in axios.get is the url we want to retrieve
@@ -46,6 +48,15 @@ createAutoComplete({
       <img src="${imgSrc}" />
       ${movie.Title} (${movie.Year})
     `;
+  },
+  // extracted deciding what to do when a user clicks on something in just configuration
+  // inside of this file, which contains all our application specific code
+  onOptionSelect(movie) {
+    onMovieSelect(movie);
+  },
+  // extract the application logic out of the autocomplete file into this file
+  inputValue(movie) {
+    return movie.Title;
   },
 });
 
