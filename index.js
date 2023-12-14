@@ -15,6 +15,7 @@ const autoCompleteConfig = {
   },
   // what to do when someone clicks on an item
   onOptionSelect(movie) {
+    document.querySelector(".tutorial").classList.add("is-hidden");
     onMovieSelect(movie);
   },
   // what to back fill inside the input when a user clicks on a movie
