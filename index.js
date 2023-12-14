@@ -1,9 +1,7 @@
 // ------ Application Specific Code ------
 
-// autocomplete widget configuration function call
-createAutoComplete({
-  // where the autocomplete is to be rendered to
-  root: document.querySelector(".autocomplete"),
+// reuseable code for the autocomplete widget
+const autoCompleteConfig = {
   // helper function to show an individual item
   // - extracted some custom logic which is only appropriate for this movie related response,
   //   if we ever want to change what it looks like all we need to do is modify this
@@ -56,6 +54,20 @@ createAutoComplete({
     // - Search has a captial 'S' as that is how it is in the response, creator of API used capital
     return response.data.Search;
   },
+};
+
+// autocomplete widget configuration function call
+createAutoComplete({
+  // this means - make a copy of everything in the autoCompleteConfig object and throw it inside
+  // this object as well as the root directory
+  ...autoCompleteConfig,
+  // where the autocomplete is to be rendered to
+  root: document.querySelector("#left-autocomplete"),
+});
+
+createAutoComplete({
+  ...autoCompleteConfig,
+  root: document.querySelector("#right-autocomplete"),
 });
 
 // helper function to display information about selected movie
