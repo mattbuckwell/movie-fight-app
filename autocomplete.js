@@ -19,7 +19,7 @@ const createAutoComplete = ({
   // decoupling between html and js files for the search fields
   root.innerHTML = `
         <label><b>Search</b></label>
-        <input class="input" />
+        <input class="input" placeholder="The Avengers"/>
         <div class="dropdown">
             <div class="dropdown-menu">
                 <div class="dropdown-content results">
