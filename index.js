@@ -13,11 +13,6 @@ const autoCompleteConfig = {
       ${movie.Title} (${movie.Year})
     `;
   },
-  // what to do when someone clicks on an item
-  onOptionSelect(movie) {
-    document.querySelector(".tutorial").classList.add("is-hidden");
-    onMovieSelect(movie);
-  },
   // what to back fill inside the input when a user clicks on a movie
   inputValue(movie) {
     return movie.Title;
@@ -64,15 +59,25 @@ createAutoComplete({
   ...autoCompleteConfig,
   // where the autocomplete is to be rendered to
   root: document.querySelector("#left-autocomplete"),
+  // what to do when someone clicks on an item
+  onOptionSelect(movie) {
+    document.querySelector(".tutorial").classList.add("is-hidden");
+    onMovieSelect(movie, document.querySelector("#left-summary"));
+  },
 });
 
 createAutoComplete({
   ...autoCompleteConfig,
   root: document.querySelector("#right-autocomplete"),
+  // what to do when someone clicks on an item
+  onOptionSelect(movie) {
+    document.querySelector(".tutorial").classList.add("is-hidden");
+    onMovieSelect(movie, document.querySelector("#right-summary"));
+  },
 });
 
 // helper function to display information about selected movie
-const onMovieSelect = async (movie) => {
+const onMovieSelect = async (movie, summaryElement) => {
   const response = await axios.get("https://www.omdbapi.com/", {
     params: {
       apikey: "1ca8cfc9",
@@ -82,7 +87,7 @@ const onMovieSelect = async (movie) => {
   });
   // calling the helper function with the response.data as the arg and saving it into the div
   // on the DOM
-  document.querySelector("#summary").innerHTML = movieTemplate(response.data);
+  summaryElement.innerHTML = movieTemplate(response.data);
 };
 
 // helper function to have all the html to display the details we need from the API
