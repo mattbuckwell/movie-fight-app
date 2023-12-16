@@ -108,7 +108,7 @@ const onMovieSelect = async (movie, summaryElement, side) => {
 
 // helper function to run comparison on the movie selections
 const runComparison = () => {
-  console.log("time for comparison");
+  // iterate over the element data-value values to compare
 };
 
 // helper function to have all the html to display the details we need from the API
@@ -151,23 +151,23 @@ const movieTemplate = (movieDetail) => {
         </div>
       </div>
     </article>
-    <article class="notification is-primary">
+    <article class="notification is-primary" data-value=${awards}>
       <p class="title">${movieDetail.Awards}</p>
       <p class="subtitle">Awards</p>
     </article>
-    <article class="notification is-primary">
+    <article class="notification is-primary" data-value=${dollars}>
       <p class="title">${movieDetail.BoxOffice}</p>
       <p class="subtitle">Box Office</p>
     </article>
-    <article class="notification is-primary">
+    <article class="notification is-primary" data-value=${metascore}>
       <p class="title">${movieDetail.Metascore}</p>
       <p class="subtitle">Metascore</p>
     </article>
-    <article class="notification is-primary">
+    <article class="notification is-primary" data-value=${imdbRating}>
       <p class="title">${movieDetail.imdbRating}</p>
       <p class="subtitle">IMDB Rating</p>
     </article>
-    <article class="notification is-primary">
+    <article class="notification is-primary" data-value=${imdbVotes}>
       <p class="title">${movieDetail.imdbVotes}</p>
       <p class="subtitle">IMDB Votes</p>
     </article>
