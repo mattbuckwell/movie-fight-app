@@ -113,6 +113,17 @@ const runComparison = () => {
 
 // helper function to have all the html to display the details we need from the API
 const movieTemplate = (movieDetail) => {
+  // holding the value of box office, $ and commas have been removed
+  const dollars = parseInt(
+    movieDetail.BoxOffice.replace(/\$/g, "").replace(/,/g, "")
+  );
+  // holding the value of metascore
+  const metascore = parseInt(movieDetail.Metascore);
+  // holding the value of the imdb rating
+  const imdbRating = parseFloat(movieDetail.imdbRating);
+  //holding the value of the imdb voting, removed commas
+  const imdbVotes = parseInt(movieDetail.imdbVotes.replace(/,/g, ""));
+
   return `
     <article class="media">
       <figure class="media-left">
