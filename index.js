@@ -123,6 +123,18 @@ const movieTemplate = (movieDetail) => {
   const imdbRating = parseFloat(movieDetail.imdbRating);
   //holding the value of the imdb voting, removed commas
   const imdbVotes = parseInt(movieDetail.imdbVotes.replace(/,/g, ""));
+  // holding the values from the awards
+  const awards = movieDetail.Awards.split(" ").reduce((prev, word) => {
+    // how we can tell if we are working with a number or not, NaN if its a string
+    const value = parseInt(word);
+    if (isNaN(value)) {
+      // return the current count
+      return prev;
+    } else {
+      // add the int value to prev and return
+      return prev + value;
+    }
+  }, 0);
 
   return `
     <article class="media">
