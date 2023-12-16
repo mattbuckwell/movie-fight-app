@@ -62,7 +62,7 @@ createAutoComplete({
   // what to do when someone clicks on an item
   onOptionSelect(movie) {
     document.querySelector(".tutorial").classList.add("is-hidden");
-    onMovieSelect(movie, document.querySelector("#left-summary"));
+    onMovieSelect(movie, document.querySelector("#left-summary"), "left");
   },
 });
 
@@ -72,12 +72,15 @@ createAutoComplete({
   // what to do when someone clicks on an item
   onOptionSelect(movie) {
     document.querySelector(".tutorial").classList.add("is-hidden");
-    onMovieSelect(movie, document.querySelector("#right-summary"));
+    onMovieSelect(movie, document.querySelector("#right-summary"), "right");
   },
 });
 
+// hold onto the reference to the selected movie so we can use for comparison later
+let leftMovie;
+let rightMovie;
 // helper function to display information about selected movie
-const onMovieSelect = async (movie, summaryElement) => {
+const onMovieSelect = async (movie, summaryElement, side) => {
   const response = await axios.get("https://www.omdbapi.com/", {
     params: {
       apikey: "1ca8cfc9",
@@ -88,6 +91,24 @@ const onMovieSelect = async (movie, summaryElement) => {
   // calling the helper function with the response.data as the arg and saving it into the div
   // on the DOM
   summaryElement.innerHTML = movieTemplate(response.data);
+
+  // for condition to see which side we are working with, left search or right
+  if (side === "left") {
+    leftMovie = response.data;
+  } else {
+    rightMovie = response.data;
+  }
+
+  // to check if both have been defined
+  if (leftMovie && rightMovie) {
+    // helper function
+    runComparison();
+  }
+};
+
+// helper function to run comparison on the movie selections
+const runComparison = () => {
+  console.log("time for comparison");
 };
 
 // helper function to have all the html to display the details we need from the API
