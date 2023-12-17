@@ -5,10 +5,11 @@
     or 'blogs'. Must be able to be ran several times in the same project
 
     reference to movies or movie have been removed from this source code so the autocomplete
-    widget can be reuseable for other applications outside of movie comparison
+    widget can be reuseable for other applications outside of movie comparison as long as it
+    is using the bulma css framework
 */
 
-// destructor out the functions being passed into from the application code
+// destructoring out the functions being passed into from the application code
 const createAutoComplete = ({
   root,
   renderOption,
@@ -19,7 +20,7 @@ const createAutoComplete = ({
   // decoupling between html and js files for the search fields
   root.innerHTML = `
         <label><b>Search</b></label>
-        <input class="input" placeholder="The Avengers"/>
+        <input class="input" />
         <div class="dropdown">
             <div class="dropdown-menu">
                 <div class="dropdown-content results">
