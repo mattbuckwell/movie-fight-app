@@ -121,8 +121,9 @@ const runComparison = () => {
   leftSideStats.forEach((leftStat, index) => {
     const rightStat = rightSideStats[index];
 
-    const leftSideValue = leftStat.dataset.value;
-    const rightSideValue = rightStat.dataset.value;
+    // these need to be parsed as they are strings being returned and may cause problems
+    const leftSideValue = parseInt(leftStat.dataset.value);
+    const rightSideValue = parseInt(rightStat.dataset.value);
 
     // helping function? accepts 2 arguments and does the comparison
     if (rightSideValue > leftSideValue) {
