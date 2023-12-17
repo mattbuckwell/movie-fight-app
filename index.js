@@ -109,6 +109,30 @@ const onMovieSelect = async (movie, summaryElement, side) => {
 // helper function to run comparison on the movie selections
 const runComparison = () => {
   // iterate over the element data-value values to compare
+  const leftSideStats = document.querySelectorAll(
+    "#left-summary .notification"
+  );
+  const rightSideStats = document.querySelectorAll(
+    "#right-summary .notification"
+  );
+
+  // each callback element will be stored in 'leftStat' and index stored so we can
+  // find the equilvilant in the right side
+  leftSideStats.forEach((leftStat, index) => {
+    const rightStat = rightSideStats[index];
+
+    const leftSideValue = leftStat.dataset.value;
+    const rightSideValue = rightStat.dataset.value;
+
+    // helping function? accepts 2 arguments and does the comparison
+    if (rightSideValue > leftSideValue) {
+      leftStat.classList.remove("is-primary");
+      leftStat.classList.add("is-warning");
+    } else {
+      rightStat.classList.remove("is-primary");
+      rightStat.classList.add("is-warning");
+    }
+  });
 };
 
 // helper function to have all the html to display the details we need from the API
