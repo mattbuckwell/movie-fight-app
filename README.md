@@ -6,6 +6,9 @@ A Movie Comparison App to determine which of two selected movies is better based
 
 <p>
 Build a web application that allows a user to select two movies and using the stats will compare them to see which is a better option to watch.
+
+Movies are pulled from the API to be displayed in the application, when user has selected two movies then based on the stats, will show which movie has a better comparison
+
 </p>
 
 ## What was used for the Project
